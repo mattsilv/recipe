@@ -40,7 +40,9 @@ if ('development' == app.get('env')) {
 //  Application Routing
 //  ================================
 // app.get('rout/',middleware,controller)
-
+app.get('/recipe',function(req,res){
+  res.render("recipe")
+});
 
 
 

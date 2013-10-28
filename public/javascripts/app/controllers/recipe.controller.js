@@ -1,13 +1,6 @@
-// // declare a module
-// var recipe = angular.module('recipe', []);
+// declare a module
+var recipe = angular.module('recipe', []);
  
-// // // configure the module.
-// // // in this example we will create a greeting filter
-// recipe.controller('RecipeCtrl', function($http) {
-//  alert("Welcome to the recipe builder")
-// });
-
-
-function RecipeCtrl() {
+recipe.controller('RecipeCtrl', ['$scope','$http',function($scope,$http) {
  alert("Welcome to the recipe builder");
-};
+}]);

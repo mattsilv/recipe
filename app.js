@@ -41,7 +41,7 @@ if ('development' == app.get('env')) {
 //  ================================
 // app.get('rout/',middleware,controller)
 app.get('/recipe',function(req,res){
-  res.render("recipe")
+  res.render("recipe",{title:"Recipe"})
 });
 
 

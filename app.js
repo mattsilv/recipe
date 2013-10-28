@@ -44,6 +44,10 @@ app.get('/recipe',function(req,res){
   res.render("recipe",{title:"Recipe"})
 });
 
+app.get('/',function(req,res){
+  res.render("index",{title:"Index"})
+});
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

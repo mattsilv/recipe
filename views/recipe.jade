@@ -7,3 +7,29 @@ block content
     div.form-group
       label.sr-only(for="ingredient") Ingredient Name
       input.form-control(type="text",placeholder="Enter Ingredient Name")
+    button.btn.btn-default(type="submit") Add
+
+
+  table.table.table-striped
+    tr
+      th Qty
+      th Measure
+      th Ingredient
+      th &nbsp;
+    tr.active
+      td 
+        input(type="text",value="1",size="2")
+      td 
+        select
+          option cup
+          option tbsp
+      td Celery, raw    
+      td 
+        button.btn.btn-default(type="submit") Save
+
+    tr
+      td 1
+      td cup
+      td butter, unsalted
+      td [x]
+

@@ -3,3 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  form.form-inline(role="form")
+    div.form-group
+      label.sr-only(for="ingredient") Ingredient Name
+      input.form-control(type="text",placeholder="Enter Ingredient Name")

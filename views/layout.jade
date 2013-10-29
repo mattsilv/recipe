@@ -5,7 +5,8 @@ html(ng-app="recipe")
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    .container
+        block content
 
     //- All JS Dependencies
     script(src='/bower_components/jquery/jquery.min.js')
@@ -15,8 +16,3 @@ html(ng-app="recipe")
     script(src='/bower_components/angular/angular.min.js')
     script(src='/javascripts/app/controllers/recipe.controller.js')
     script(src='/javascripts/app/services/nutritionix-api.service.js')
-    script.
-        //- NIX_API_CREDENTIALS = {
-        //-     "appId":"#{nixApi.appId}",
-        //-     "appKey":"#{nixApi.appKey}",
-        //- };

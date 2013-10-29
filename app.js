@@ -8,16 +8,16 @@ var path = require('path');
 var argv = require('optimist').argv; // process args
 var fs   = require('fs')
 var app = express();
+var env = process.env.NODE_ENV || 'development';
+var mongoose = require('mongoose');
+var envConfig = require('./config/'+env+'.config.js');
 
-
-var apiCred = fs.readFileSync('./config/api.cred.json','utf8');
-apiCred = JSON.parse(apiCred);
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.set('apiCred',apiCred);
 app.set('secret','ccc369d4f40ee9c2234d2d502f91a8328a835375');
+app.set('envSettings',envConfig)
 app.use(express.logger('dev'));
 app.use(express.favicon());
 app.use(express.bodyParser());
@@ -30,6 +30,9 @@ app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+var mongooseSettings = app.get('envSettings').mongoose;
+var db = mongoose.createConnection(mongooseSettings.url, mongooseSettings.options);
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -41,18 +44,18 @@ if ('development' == app.get('env')) {
 //  ================================
 // app.get('rout/',middleware,controller)
 app.get('/recipe',function(req,res){
-  var nixApi = req.app.get('apiCred');
+  var nixApi = req.app.get('envSettings').nutritionix;
   res.render("recipe",{title:"Recipe",nixApi:nixApi})
 });
 
 app.get('/',function(req,res){
-  var nixApi = req.app.get('apiCred');
+  var nixApi = req.app.get('envSettings').nutritionix;
   res.render("index",{title:"Index",nixApi:nixApi})
 });
 
 var request = require("request")
 app.get('/recipe/search',function(req,res){
-  var nixApi = req.app.get('apiCred');
+  var nixApi = req.app.get('envSettings').nutritionix;
   var query = req.param("q");
   request({
     url:"https://api.nutritionix.com/v1_1/search",

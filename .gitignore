@@ -41,3 +41,5 @@ Icon
 ### APP ###
 *.cred.json
 *.config.json
+*.cred.js
+*.config.js

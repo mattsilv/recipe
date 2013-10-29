@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var Types = Schema.types;
+
 // Initialize Model Schema's
 
 // Types:
@@ -35,13 +38,9 @@ var recipeSchema = mongoose.Schema({
     type:String,
     required:true
   },
-  ingredients:[{
-    name:String,
-    serving_unit_qty:Number,
-    serving_unit_name:String,
-    measure_qty:Number,
-    measure_uom:String,
-    api_item_id:String
+  ingredients: [{
+    type: Types.ObjectId,
+    ref: 'Ingredient'
   }]
 });
 

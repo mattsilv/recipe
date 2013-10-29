@@ -1,38 +1,38 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form.form-inline(role="form")
-    div.form-group
-      label.sr-only(for="ingredient") Ingredient Name
-      input.form-control(type="text",placeholder="Enter Ingredient Name")
-    button.btn.btn-default(type="submit") Add
+  .container(ng-controller="RecipeCtrl")
+    h1= title
+    p Welcome to #{title}
+    form.form-inline(role="form")
+      div.form-group
+        label.sr-only(for="ingredient") Ingredient Name
+        input.form-control(type="text",placeholder="Enter Ingredient Name",type-ahead)
 
 
-  table.table.table-striped
-    tr
-      th Qty
-      th Measure
-      th Ingredient
-      th Cal
-      th &nbsp;
-    tr.success
-      td 
-        input(type="text",value="1",size="2")
-      td 
-        select
-          option cup
-          option tbsp
-      td Celery, raw 
-      td Y   
-      td 
-        button.btn.btn-default(type="submit") Save
+    table.table.table-striped
+      tr
+        th Qty
+        th Measure
+        th Ingredient
+        th Cal
+        th &nbsp;
+      //- tr.success
+      //-   td 
+      //-     input(type="text",value="1",size="2")
+      //-   td 
+      //-     select
+      //-       option cup
+      //-       option tbsp
+      //-   td Celery, raw 
+      //-   td Y   
+      //-   td 
+      //-     button.btn.btn-default(type="submit") Save
 
-    tr
-      td 1
-      td cup
-      td butter, unsalted
-      td 100
-      td [x]
+      tr(ng-repeat="item in items")
+        td {{item.nf_serving_size_qty}}
+        td {{item.nf_serving_size_unit}}
+        td {{item.item_name}}
+        td {{item.nf_calories}}
+        td [x]
 

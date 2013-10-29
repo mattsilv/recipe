@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -18,13 +17,14 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('apiCred',apiCred);
-app.use(express.favicon());
+app.set('secret','ccc369d4f40ee9c2234d2d502f91a8328a835375');
 app.use(express.logger('dev'));
+app.use(express.favicon());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('ccc369d4f40ee9c2234d2d502f91a8328a835375'));
+app.use(express.cookieParser(app.get("secret")));
 app.use(express.session({
-  secret:"ccc369d4f40ee9c2234d2d502f91a8328a835375"
+  "secret":app.get("secret")
 }));
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -41,11 +41,43 @@ if ('development' == app.get('env')) {
 //  ================================
 // app.get('rout/',middleware,controller)
 app.get('/recipe',function(req,res){
-  res.render("recipe",{title:"Recipe"})
+  var nixApi = req.app.get('apiCred');
+  res.render("recipe",{title:"Recipe",nixApi:nixApi})
 });
 
 app.get('/',function(req,res){
-  res.render("index",{title:"Index"})
+  var nixApi = req.app.get('apiCred');
+  res.render("index",{title:"Index",nixApi:nixApi})
+});
+
+var request = require("request")
+app.get('/recipe/search',function(req,res){
+  var nixApi = req.app.get('apiCred');
+  var query = req.param("q");
+  request({
+    url:"https://api.nutritionix.com/v1_1/search",
+    method:"POST",
+    qs:nixApi,
+    json: {
+      // "fields": ["_score", "item_name", "brand_name", "item_type", "keywords", "seq"],
+      "query": query,
+      "filters": {
+        "seq": 1,
+        "exists": {
+          "keywords": true
+        }
+      }
+    } 
+  },function(e,r,b){
+    var items = []
+    for(var index in b.hits){
+      var item = b.hits[index]._source;
+      item.item_name = item.item_name.split('-')[0].trim();
+      items.push(item)
+    }
+    res.json(items)
+  })
+
 });
 
 

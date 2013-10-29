@@ -80,6 +80,10 @@ app.get('/recipe/search',function(req,res){
 
 });
 
+// /recipes
+app.get('/recipes',function(req,res){
+  res.render("recipes/index",{title:"View All Recipes"})
+});
 
 
 http.createServer(app).listen(app.get('port'), function(){

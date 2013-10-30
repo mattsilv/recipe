@@ -27,7 +27,7 @@ angular.module('recipe', ['nutritionix'])
 .controller('RecipeCtrl', ['$scope','$http','nixApi',function($scope,$http,nixApi) {
   $scope.recipe = recipe;
   $scope.fractions = fractions.sort();
-  $scope.measurements = measurements.sort();
+  $scope.measurements = measurements;
 }])
 
 .directive('typeAhead', [function(){
@@ -40,10 +40,15 @@ angular.module('recipe', ['nutritionix'])
         remote: '/recipes/search?q=%QUERY',
         valueKey:'item_name',
         template: '<p><strong>{{item_name}}</strong></p>',
-        engine: Hogan
-      }).bind('typeahead:selected', function(obj, datum) {
+        engine: Hogan,
+        autoselect: true
+      }).on('typeahead:selected', function(obj, datum) {
         $scope.recipe.ingredients.push(datum)
         $scope.$apply();
+        iElm.typeahead("setQuery")
+      }).on("typeahead:opened", function (a,b,c,d) {
+        var sugg = $('.tt-suggestion');
+        if(sugg.length) sugg[0].focus();
       });
     }
   }

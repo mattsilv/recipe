@@ -32,7 +32,7 @@ block content
 
           tr(ng-repeat="ing in recipe.ingredients")
             td 
-              input(type="text",size="2",placeholder="1")
+              input(type="text",size="2",value="1")
               select(ng-options="fraction for fraction in fractions",
                      ng-model="ing.meta.qty")
                 option(value="") -

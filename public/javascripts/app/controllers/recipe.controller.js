@@ -25,7 +25,7 @@ angular.module('recipe', ['nutritionix'])
 }])
 
 .controller('RecipeCtrl', ['$scope','$http','nixApi',function($scope,$http,nixApi) {
-  $scope.items = [];
+  
 }])
 
 .directive('typeAhead', [function(){

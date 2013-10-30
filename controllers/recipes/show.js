@@ -4,7 +4,7 @@ var show = function(req,res,next){
 
   Recipe.findOne({"_id":id},function(err,recipe){
     if(err) return next(err);
-    res.render("recipe", {
+    res.render("recipes/edit", {
       title: "Recipe",
       recipe: recipe
     });

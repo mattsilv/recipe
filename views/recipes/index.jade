@@ -15,21 +15,22 @@ block content
         div.form-group  
           input.form-control(type="submit",value="Add")
 
-    div.row
-      div.col-md-8
-        table.table.table-bordered.table-striped
-          tr
-            th id
-            th Name
-            th &nbsp;
-    
-          tr(ng-repeat="recipe in recipes")
-            td(ng-bind='recipe._id')
-            td 
-              a(ng-href="/recipes/{{recipe._id}}",ng-bind='recipe.name')
-            td
-              button.btn.btn-danger
-                i.glyphicon.glyphicon-trash
+    //- div.row
+    //-   div.col-md-6
+    table.table.table-condensed.table-bordered.table-striped
+      thead
+        tr
+          //- th id
+          th.col-sm-12 Name
+          th &nbsp;
+      tbody
+        tr(ng-repeat="recipe in recipes")
+          //- td(ng-bind='recipe._id')
+          td
+            a(ng-href="/recipes/{{recipe._id}}",ng-bind='recipe.name')
+          td
+            button.btn.btn-danger
+              i.glyphicon.glyphicon-trash
 
 
 

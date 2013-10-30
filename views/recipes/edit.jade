@@ -32,10 +32,14 @@ block content
 
           tr(ng-repeat="ing in recipe.ingredients")
             td 
-              input(value="1")
-              select(ng-options="fraction for fraction in fractions")
+              //- input.form-control(type="text"
+              select(ng-options="fraction for fraction in fractions",
+                     ng-model="ing.meta.qty")
+                option(value="") -- choose fraction --
             td 
-              select(ng-options="measurement.name for measurement in measurements")
+              select(ng-options="measurement.name for measurement in measurements",
+                     ng-model="ing.meta.unit")
+                option(value="") -- choose measurement --
             td {{ing.item_name}}
             td {{ing.nf_calories}}
             td [x]

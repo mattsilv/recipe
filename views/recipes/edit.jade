@@ -35,21 +35,24 @@ block content
             td 
               input(type="text",size="1",value="1")
               select(ng-options="fraction for fraction in fractions",
-                     ng-model="ing.meta.qty")
+                     ng-model="ing.meta.qty",
+                     ng-change="saveIng()")
                 option(value="") -
             td 
-              select(ng-options="measurement.name for measurement in measurements",
-                     ng-model="ing.meta.unit")
+              select(ng-options="measurement as measurement.name for measurement in measurements",
+                     ng-model="ing.meta.unit",
+                     ng-change="saveIng()"
+                     )
                 option(value="") -- unit --
             td {{ing.item_name}}
             td {{ing.nf_calories}}
             td [x]
-    div
-      button.btn.btn-success Save
-    br  
+    //- div
+    //-   button.btn.btn-success(ng-click="save()") Save
+    //- br  
     div
       a.btn.btn-primary(href="/recipes") Back to Recipes
-      
+
   script.
     var recipe = !{JSON.stringify(recipe)};
     var fractions = !{JSON.stringify(fractions)};

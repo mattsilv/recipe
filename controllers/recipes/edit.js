@@ -1,6 +1,6 @@
 var meas = require("../../data/measurements");
 var frac = require("../../data/fractions");
-var show = function(req,res,next){
+var edit = function(req,res,next){
   var id = req.param("id");
   var Recipe = req.app.models.Recipe;
 
@@ -16,4 +16,4 @@ var show = function(req,res,next){
   
 };
 
-module.exports = function(){return show};
+module.exports = function(){return edit};

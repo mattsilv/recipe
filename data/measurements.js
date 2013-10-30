@@ -64,7 +64,7 @@ module.exports = [
     group:"us",
     name:"milliliter",
     usda_name:null,
-    aliases:["ml"],
+    aliases:["ml","milliliter"],
     measure_ML:1,
     measure_MG:null
   },
@@ -72,7 +72,7 @@ module.exports = [
     group:"us",
     name:"gram",
     usda_name:null,
-    aliases:["g"],
+    aliases:["g","gram"],
     measure_ML:null,
     measure_MG:1
   }

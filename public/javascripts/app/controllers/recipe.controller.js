@@ -30,10 +30,11 @@ angular.module('recipe', ['nutritionix'])
   $scope.measurements = measurements;
 
   $scope.save = function (update) {
+    console.log(update)
     request({
       url:'/recipes/' + $scope.recipe._id,
       method:"POST",
-      data:update
+      data:JSON.stringify(update)
     },function(err,data){
       if(err) console.log(err);
       if(!err) console.log("Successfully updated");
@@ -45,7 +46,6 @@ angular.module('recipe', ['nutritionix'])
   return {
     restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
     link: function($scope, iElm, iAttrs, controller) {
-      // var iAttrs.
       iElm.typeahead({
         name: 'Items',
         limit:10,
@@ -55,7 +55,7 @@ angular.module('recipe', ['nutritionix'])
         engine: Hogan,
         autoselect: true
       }).on('typeahead:selected', function(obj, datum) {
-        $scope.recipe.ingredients.push(datum)
+        $scope.recipe.ingredients.push(datum);
         $scope.$apply(function(){
           $scope.save({
             "$set": {

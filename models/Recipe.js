@@ -41,10 +41,11 @@ var recipeSchema = mongoose.Schema({
     type:String,
     required:true
   },
-  ingredients: [{
-    type: Types.ObjectId,
-    ref: 'Ingredient'
-  }]
+  ingredients: Array
+  // [{
+  //   type: Types.ObjectId,
+  //   ref: 'Ingredient'
+  // }]
 });
 
 

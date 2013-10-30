@@ -11,12 +11,12 @@ block content
         input.form-control(type="text",size="40",placeholder="Add Ingredient...",type-ahead)
     br
     div.row
-      div.col-md-8
+      div.col-md-12
         table.table.table-bordered.table-striped
           tr
             th.col-sm-2 Qty
             th.col-sm-2 Measure
-            th.col-sm-4 Ingredient
+            th.col-sm-5 Ingredient
             th.col-sm-1 Cal
             th.col-sm-1 &nbsp;
           //- tr.success
@@ -43,7 +43,9 @@ block content
                 option(value="") -- unit --
             td {{ing.item_name}}
             td {{ing.nf_calories}}
-            td [x]
+            td.text-center 
+              button.btn.btn-danger.btn-xs
+                i.glyphicon.glyphicon-trash
     div
       button.btn.btn-success Save
     br  

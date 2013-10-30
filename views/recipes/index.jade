@@ -22,7 +22,7 @@ block content
         tr(ng-repeat="recipe in recipes")
           //- td(ng-bind='recipe._id')
           td
-            a(ng-href="/recipes/{{recipe._id}}",ng-bind='recipe.name')
+            a(ng-href="/recipes/{{recipe._id}}/edit",ng-bind='recipe.name')
           td.text-center
             a(ng-href="/recipes/{{recipe._id}}")
               button.btn.btn-primary.btn-xs

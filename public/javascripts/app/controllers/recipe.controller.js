@@ -28,16 +28,21 @@ angular.module('recipe', ['nutritionix'])
   $scope.recipe = recipe;
   $scope.fractions = fractions.sort();
   $scope.measurements = measurements;
-
+  $scope.saveIng = function(){
+    $scope.save({
+      $set:{
+        ingredients:$scope.recipe.ingredients
+      }
+    })
+  }
   $scope.save = function (update) {
-    console.log(update)
     request({
       url:'/recipes/' + $scope.recipe._id,
       method:"POST",
       data:JSON.stringify(update)
     },function(err,data){
       if(err) console.log(err);
-      if(!err) console.log("Successfully updated");
+      // if(!err) console.log("Successfully updated");
     })
   }
 }])

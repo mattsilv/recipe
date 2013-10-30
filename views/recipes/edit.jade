@@ -10,30 +10,40 @@ block content
         label.sr-only(for="ingredient") Ingredient Name
         input.form-control(type="text",placeholder="Enter Ingredient Name",type-ahead)
 
+    div.row
+      div.col-md-8
+        table.table.table-bordered.table-striped
+          tr
+            th Qty
+            th Measure
+            th Ingredient
+            th Cal
+            th &nbsp;
+          //- tr.success
+          //-   td 
+          //-     input(type="text",value="1",size="2")
+          //-   td 
+          //-     select
+          //-       option cup
+          //-       option tbsp
+          //-   td Celery, raw 
+          //-   td Y   
+          //-   td 
+          //-     button.btn.btn-default(type="submit") Save
 
-    table.table.table-bordered.table-striped
-      tr
-        th Qty
-        th Measure
-        th Ingredient
-        th Cal
-        th &nbsp;
-      //- tr.success
-      //-   td 
-      //-     input(type="text",value="1",size="2")
-      //-   td 
-      //-     select
-      //-       option cup
-      //-       option tbsp
-      //-   td Celery, raw 
-      //-   td Y   
-      //-   td 
-      //-     button.btn.btn-default(type="submit") Save
-
-      tr(ng-repeat="ing in recipe.ingredients")
-        td {{ing.nf_serving_size_qty}}
-        td {{ing.nf_serving_size_unit}}
-        td {{ing.item_name}}
-        td {{ing.nf_calories}}
-        td [x]
+          tr(ng-repeat="ing in recipe.ingredients")
+            td 
+              input(value="1")
+              select 
+                option(value="1") 1/4 
+                option(value="2") 1/8
+                option(value="3") 2/3
+            td 
+              select
+                option(value="1") cup
+                option(value="2") tbsp
+                option(value="3") tsp
+            td {{ing.item_name}}
+            td {{ing.nf_calories}}
+            td [x]
 

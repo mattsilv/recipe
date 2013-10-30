@@ -4,20 +4,21 @@ block content
   .angular(ng-controller="RecipeCtrl")
     h1= recipe.name
     //- p= recipe._id
+    br
     form.form-inline(role="form")
       div.form-group
         label.sr-only(for="ingredient") Ingredient Name
-        input.form-control(type="text",size="40",placeholder="Enter Ingredient Name",type-ahead)
-
+        input.form-control(type="text",size="40",placeholder="Add Ingredient...",type-ahead)
+    br
     div.row
       div.col-md-8
         table.table.table-bordered.table-striped
           tr
-            th Qty
-            th Measure
-            th Ingredient
-            th Cal
-            th &nbsp;
+            th.col-sm-2 Qty
+            th.col-sm-2 Measure
+            th.col-sm-4 Ingredient
+            th.col-sm-1 Cal
+            th.col-sm-1 &nbsp;
           //- tr.success
           //-   td 
           //-     input(type="text",value="1",size="2")
@@ -32,7 +33,7 @@ block content
 
           tr(ng-repeat="ing in recipe.ingredients")
             td 
-              input(type="text",size="2",value="1")
+              input(type="text",size="1",value="1")
               select(ng-options="fraction for fraction in fractions",
                      ng-model="ing.meta.qty")
                 option(value="") -
@@ -45,6 +46,7 @@ block content
             td [x]
     div
       button.btn.btn-success Save
+    br  
     div
       a(href="/recipes")
         button.btn.btn-primary Back to Recipes

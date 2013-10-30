@@ -29,11 +29,8 @@ angular.module('recipe', ['nutritionix'])
   $scope.fractions = fractions.sort();
   $scope.measurements = measurements;
 
-  $scope.saveIng = function () {
-    $scope.save({$set:{ingredients:recipe.ingredients}});
-  }
   $scope.save = function (update) {
-    // console.log(update)
+    console.log(update)
     request({
       url:'/recipes/' + $scope.recipe._id,
       method:"POST",

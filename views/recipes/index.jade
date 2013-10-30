@@ -8,6 +8,9 @@ block content
 
     //- div.row
     //-   div.col-md-6
+    a(href="#add")
+      button.btn.btn-success.pull-right Add Recipe
+    br
     br
     table.table.table-bordered.table-striped.table-hover
       thead
@@ -27,6 +30,7 @@ block content
             | &nbsp;
             button.btn.btn-danger.btn-xs
               i.glyphicon.glyphicon-trash
+    a(name="add")
     h4 Add Recipe
     div
       form.form-inline(role="form",ng-submit="addRecipe()")

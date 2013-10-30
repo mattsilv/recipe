@@ -1,8 +1,7 @@
 extends ../layout
 
 block content
-  div(ng-controller="RecipeCtrl",
-      ng-init='recipe = #{JSON.stringify(recipe)}')
+  .angular(ng-controller="RecipeCtrl")
     h1= recipe.name
     p= recipe._id
     form.form-inline(role="form")
@@ -34,18 +33,15 @@ block content
           tr(ng-repeat="ing in recipe.ingredients")
             td 
               input(value="1")
-              select 
-                option(value="1") 1/4 
-                option(value="2") 1/8
-                option(value="3") 2/3
+              select(ng-options="fraction for fraction in fractions")
             td 
-              select
-                option(value="1") cup
-                option(value="2") tbsp
-                option(value="3") tsp
+              select(ng-options="measurement.name for measurement in measurements")
             td {{ing.item_name}}
             td {{ing.nf_calories}}
             td [x]
     a(href="/recipes")
       button.btn.btn-primary Back to Recipes
-
+  script.
+    var recipe = !{JSON.stringify(recipe)};
+    var fractions = !{JSON.stringify(fractions)};
+    var measurements = !{JSON.stringify(measurements)};

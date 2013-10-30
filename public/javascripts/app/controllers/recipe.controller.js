@@ -1,9 +1,34 @@
 // declare a module
-var recipe = angular.module('recipe', ['nutritionix']);
- 
-recipe.controller('RecipeCtrl', ['$scope','$http','nixApi',function($scope,$http,nixApi) {
+angular.module('recipe', ['nutritionix'])
+
+.controller('RecipesCtrl', ['$scope','$http','nixApi',function($scope,$http,nixApi) {
+  $scope.recipes = [];
+
+  $scope.addRecipe = function(){
+    $http({
+      method: "POST",
+      url: '/recipes',
+      data: $scope.recipe
+    })
+    .success(function(data){
+      $scope.recipes.push(data);
+      $scope.recipe = {
+        "name":null,
+        "serving_unit_qty":null,
+        "serving_unit_name":null
+      };
+    })
+    .error(function(err){
+      console.warn(err)
+    })
+  }
+}])
+
+.controller('RecipeCtrl', ['$scope','$http','nixApi',function($scope,$http,nixApi) {
   $scope.items = [];
-}]).directive('typeAhead', [function(){
+}])
+
+.directive('typeAhead', [function(){
   return {
     restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
     link: function($scope, iElm, iAttrs, controller) {

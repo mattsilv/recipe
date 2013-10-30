@@ -1,6 +1,10 @@
+/**
+ * Ingredient Model
+ */
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Types = Schema.types;
+var Types = Schema.Types;
 
 var ingredientSchema = mongoose.Schema({
   name:{type:String,required:true},
@@ -12,4 +16,6 @@ var ingredientSchema = mongoose.Schema({
   recipe:{type:Types.ObjectId, ref:'Recipe'}
 });
 
-module.exports = mongoose.model('Ingredient', ingredientSchema);
+module.exports = function(){
+  return mongoose.model('Ingredient', ingredientSchema);
+}

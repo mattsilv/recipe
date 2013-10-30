@@ -1,6 +1,9 @@
+/**
+ * Recipe Model
+ */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Types = Schema.types;
+var Types = Schema.Types;
 
 // Initialize Model Schema's
 
@@ -49,4 +52,6 @@ var recipeSchema = mongoose.Schema({
 // Created an index ensuring uniqueness on name
 // background allows an index to be processed without locking mongod
 recipeSchema.index({name:1},{unique:true,background:true});
-module.exports = mongoose.model('Recipe', recipeSchema);
+module.exports = function(){
+  return mongoose.model('Recipe', recipeSchema);
+}

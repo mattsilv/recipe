@@ -15,7 +15,7 @@ block content
         th.col-sm-1 Qty
         th.col-sm-1 Measure
         th.col-sm-5 Ingredient
-        th.col-sm-1 Cal
+        th.col-sm-1.text-center Cal
         th.col-sm-1 &nbsp;
       //- tr.success
       //-   td 
@@ -40,10 +40,16 @@ block content
                  ng-model="ing.meta.unit")
             option(value="") -- unit --
         td {{ing.item_name}}
-        td {{ing.nf_calories}}
+        td.text-center {{ing.nf_calories}}
         td.text-center 
           button.btn.btn-danger.btn-xs
             i.glyphicon.glyphicon-trash
+      tr    
+        td(colspan="3") 
+          &nbsp;
+        td.text-center 150  
+        td
+          &nbsp;
     div
       button.btn.btn-success Save
     br  

@@ -45,7 +45,7 @@ angular.module('recipe', ['nutritionix'])
   return {
     restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
     link: function($scope, iElm, iAttrs, controller) {
-      var iAttrs.
+      // var iAttrs.
       iElm.typeahead({
         name: 'Items',
         limit:10,

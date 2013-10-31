@@ -8,6 +8,7 @@ module.exports = function(app){
   app.get('/recipes/search',controllers.recipes.search);
   app.get('/recipes/:id/edit',controllers.recipes.edit);
   app.post('/recipes/:id',controllers.recipes.save);
+  app.delete('/recipes/:id',controllers.recipes.delete);
 }
 
 // C.reate

@@ -8,8 +8,15 @@ block content
 
     //- div.row
     //-   div.col-md-6
-    a(href="#add")
-      button.btn.btn-success.pull-right Add Recipe
+    
+    button(id="popover",
+           class="btn btn-success pull-right",
+           bs-trigger="click",
+           bs-title="Add A New Recipe",
+           bs-placement="bottom",
+           bs-content="#addRecipeContent"
+           bs-pop-over)
+      i.glyphicon.glyphicon-plus
     br
     br
     table.table.table-bordered.table-striped.table-hover
@@ -22,23 +29,24 @@ block content
         tr(ng-repeat="recipe in recipes")
           //- td(ng-bind='recipe._id')
           td
+            //- This link will be to the item Show page
             a(ng-href="/recipes/{{recipe._id}}/edit",ng-bind='recipe.name')
           td.text-center
-            a(ng-href="/recipes/{{recipe._id}}")
-              button.btn.btn-primary.btn-xs
-                i.glyphicon.glyphicon-edit
+            //- This is a link to the edit
+            a.btn.btn-primary.btn-xs(ng-href="/recipes/{{recipe._id}}/edit")
+              i.glyphicon.glyphicon-edit
             | &nbsp;
-            button.btn.btn-danger.btn-xs
+            //- This button will do some JS magic and delete the item. :)
+            button.btn.btn-danger.btn-xs(ng-click="delRecipe(recipe._id,$index)")
               i.glyphicon.glyphicon-trash
-    a(name="add")
-    h4 Add Recipe
-    div
+    
+    //- Hidden Div that contains the HTML content for add button
+    div(id="addRecipeContent",style="display: none")
       form.form-inline(role="form",ng-submit="addRecipe()")
         div.form-group
-          input.form-control(type="text",placeholder="Recipe Name",size="20",ng-model="recipe.name")
+          input.form-control#name(type="text",placeholder="Recipe Name",size="20",ng-model="recipe.name")
         div.form-group
           input.form-control(type="text",placeholder="Qty",size="2",ng-model="recipe.serving_unit_qty")
-        div.form-group
           input.form-control(type="text",placeholder="Serving Name",size="15",ng-model="recipe.serving_unit_name")         
         div.form-group  
           input.form-control.btn-success(type="submit",value="Add")

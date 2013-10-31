@@ -106,7 +106,10 @@ angular.module('recipe', ['nutritionix'])
         html:true,
         content:function(){
           var html = $(iAttrs.bsContent).html();
-          return $compile(html)($scope);
+          console.log($scope)
+          html = $compile(html)($scope);
+          // $scope.apply()
+          return html;
         }
       })
     }

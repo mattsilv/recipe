@@ -37,7 +37,7 @@ block content
                  ng-change="saveIng()")
             option(value="") -
         td 
-          select(ng-options="measurement.name for measurement in measurements",
+          select(ng-options="measurement.name as measurement.name for measurement in measurements",
                  ng-model="ing.meta.unit",
                  ng-change="saveIng()")
             option(value="") -- unit --

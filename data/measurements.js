@@ -10,7 +10,8 @@ module.exports = [
     usda_name:"tsp",
     aliases:["teaspoon","tsp","tsps"],
     measure_ML:4.93,
-    measure_MG:null
+    measure_MG:null,
+    measure_OZ:0.166667
   },
   {
     group:"us",
@@ -18,7 +19,8 @@ module.exports = [
     usda_name:"tbsp",
     aliases:["tablespoon","tbsp","tbsps"],
     measure_ML:14.79,
-    measure_MG:null
+    measure_MG:null,
+    measure_OZ:0.5
   },
   {
     group:"us",
@@ -26,7 +28,8 @@ module.exports = [
     usda_name:"cup",
     aliases:["cup","c","cups"],
     measure_ML:236.59,
-    measure_MG:null
+    measure_MG:null,
+    measure_OZ:8
   },
   {
     group:"us",
@@ -34,7 +37,8 @@ module.exports = [
     usda_name:"quart",
     aliases:["quart","quarts","q"],
     measure_ML:946.36,
-    measure_MG:null
+    measure_MG:null,
+    measure_OZ:32
   },
   {
     group:"us",
@@ -42,7 +46,8 @@ module.exports = [
     usda_name:"gallon",
     aliases:["gallon","gal","gals"],
     measure_ML:3785,
-    measure_MG:null
+    measure_MG:null,
+    measure_OZ:128
   },
   {
     group:"us",
@@ -50,7 +55,8 @@ module.exports = [
     usda_name:"oz",
     aliases:["ounce","ounces","oz","ozs"],
     measure_ML:29.5735,
-    measure_MG:28.3495
+    measure_MG:28.3495,
+    measure_OZ:1
   },
   {
     group:"us",
@@ -58,7 +64,8 @@ module.exports = [
     usda_name:null,
     aliases:["pound","lb","lbs","pounds"],
     measure_ML:null,
-    measure_MG:454592
+    measure_MG:454592,
+    measure_OZ:16
   },
   {
     group:"us",
@@ -66,7 +73,8 @@ module.exports = [
     usda_name:null,
     aliases:["ml","milliliter"],
     measure_ML:1,
-    measure_MG:null
+    measure_MG:null,
+    measure_OZ:0.033814
   },
   {
     group:"us",
@@ -74,6 +82,7 @@ module.exports = [
     usda_name:null,
     aliases:["g","gram"],
     measure_ML:null,
-    measure_MG:1
+    measure_MG:1,
+    measure_OZ:0.035274
   }
 ];

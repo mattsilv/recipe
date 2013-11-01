@@ -54,7 +54,7 @@ block content
         td {{ing.item_name}}
         td.text-center 
           span.label.label-success USDA
-        td.text-center X
+        td.text-center {{ing.nf_serving_weight_grams}}
         td.text-center {{ing.nf_calories}}
         td.text-center 
           button.btn.btn-danger.btn-xs
@@ -63,9 +63,9 @@ block content
         td(colspan="4") 
           &nbsp;
         td.text-center 
-          strong X  
+          strong {{SUM(recipe.ingredients,'nf_calories')}}  
         td.text-center 
-          strong SUM   
+          strong {{SUM(recipe.ingredients,'nf_serving_weight_grams')}}   
         td
           &nbsp;
     div

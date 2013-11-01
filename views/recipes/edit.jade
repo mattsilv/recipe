@@ -2,7 +2,10 @@ extends ../layout
 
 block content
   .angular(ng-controller="RecipeCtrl")
-    h1= recipe.name
+    //- h1= recipe.name
+    div
+      h1 #{recipe.name}
+      h4 #{recipe.serving_unit_qty} #{recipe.serving_unit_name}
     //- p= recipe._id
     br
     form.form-inline(role="form")

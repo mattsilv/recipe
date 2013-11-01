@@ -8,14 +8,15 @@ block content
 
     //- div.row
     //-   div.col-md-6
-    
-    button(id="popover",
-           class="btn btn-success pull-right",
-           bs-trigger="click",
-           bs-title="Add A New Recipe",
-           bs-placement="bottom",
-           bs-content="#addRecipeContent"
-           bs-pop-over)
+    //- REMOVING BECAUSE MATT HATES IT 
+    //- WHEN I DO UI STUFF ... (>.>)
+    //- button(id="popover",
+    //-        class="btn btn-success pull-right",
+    //-        bs-trigger="click",
+    //-        bs-title="Add A New Recipe",
+    //-        bs-placement="bottom",
+    //-        bs-content="#addRecipeContent"
+    //-        bs-pop-over)
       i.glyphicon.glyphicon-plus
     br
     br
@@ -41,17 +42,18 @@ block content
               i.glyphicon.glyphicon-trash
     
     //- Hidden Div that contains the HTML content for add button
-    div(id="addRecipeContent",style="display:none;")
+    div(id="addRecipeContent")
       //- Set action to prevent page from loading
       //- Only when compiling a template in directive
       //- Temp Fix
-      form.form-inline(ng-submit="addRecipe()",action="")
+      form.form-inline(ng-submit="addRecipe()")
         div.form-group
           input.form-control#name(type="text",placeholder="Recipe Name",size="20",ng-model="recipe.name")
         div.form-group
           input.form-control(type="text",placeholder="Qty",size="2",ng-model="recipe.serving_unit_qty")
+        div.form-group
           input.form-control(type="text",placeholder="Serving Name",size="15",ng-model="recipe.serving_unit_name")         
-        div.form-group  
+        div.form-group
           button.form-control.btn-success Add
 
 

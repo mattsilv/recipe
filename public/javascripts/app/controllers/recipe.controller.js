@@ -5,6 +5,23 @@ angular.module('recipe', ['nutritionix'])
   function($scope, request, nixApi) {
     $scope.recipes = [];
 
+    $scope.mergeMeasurements = function(weights){
+      console.log("SOMETHING")
+      if(!weights) return $scope.measurements;
+      var newMeasurements = [];
+      for(var w in weights){
+        newMeasurements.push({
+          group: "us",
+          name: w.serving_unit_name,
+          usda_name: w.serving_unit_name,
+          aliases: null,
+          measure_ML: null,
+          measure_MG: w.serving_weight_grams,
+          measure_OZ: null
+        });
+      }
+      return $scope.measurements.concat(newMeasurements);
+    };
     $scope.delRecipe = function(_id,$index){
       console.log(_id,$index)
       request({

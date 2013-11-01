@@ -14,9 +14,19 @@ block content
       tr
         th.col-sm-1 Qty
         th.col-sm-1 Measure
-        th.col-sm-5 Ingredient
+        th.col-sm-4 Ingredient
+        th.col-sm-1.text-center Source
         th.col-sm-1.text-center Weight (g)
+        th.col-sm-1.text-center Cal
         th.col-sm-1 &nbsp;
+        //- th Qty
+        //- th Measure
+        //- th Ingredient
+        //- th.text-center Source
+        //- th.text-center Weight (g)
+        //- th.text-center Cal
+        //- th &nbsp;
+
       //- tr.success
       //-   td 
       //-     input(type="text",value="1",size="2")
@@ -42,15 +52,20 @@ block content
                  ng-change="saveIng()")
             option(value="") -- unit --
         td {{ing.item_name}}
+        td.text-center 
+          span.label.label-success USDA
+        td.text-center X
         td.text-center {{ing.nf_calories}}
         td.text-center 
           button.btn.btn-danger.btn-xs
             i.glyphicon.glyphicon-trash
       tr    
-        td(colspan="3") 
+        td(colspan="4") 
           &nbsp;
         td.text-center 
-          strong 150  
+          strong X  
+        td.text-center 
+          strong SUM   
         td
           &nbsp;
     div

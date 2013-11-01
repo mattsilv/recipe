@@ -50,17 +50,18 @@ block content
                  ng-change="saveIng()")
             option(value="") -
         td 
-          select(ng-options="m.name as m.name for m in measurements",
+          select(ng-options="m.serving_unit_name as m.serving_unit_name for m in ing.weights",
                  ng-model="ing.meta.unit",
                  ng-change="saveIng()")
             option(value="") -- unit --
+
         td {{ing.item_name}}
         td.text-center 
           span.label.label-success USDA
         td.text-center {{ing.nf_serving_weight_grams}}
         td.text-center {{ing.nf_calories}}
         td.text-center 
-          button.btn.btn-danger.btn-xs
+          button.btn.btn-danger.btn-xs(ng-click="remIng($index)")
             i.glyphicon.glyphicon-trash
       tr    
         td(colspan="4") 

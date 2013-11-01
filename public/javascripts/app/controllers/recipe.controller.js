@@ -58,6 +58,11 @@ angular.module('recipe', ['nutritionix'])
     $scope.recipe = recipe;
     $scope.fractions = fractions.sort();
     $scope.measurements = measurements;
+    
+    $scope.remIng = function($index){
+      $scope.recipe.ingredients.splice($index,1)
+      $scope.saveIng()
+    }
     $scope.saveIng = function() {
       $scope.save({
         $set: {
@@ -153,12 +158,16 @@ angular.module('recipe', ['nutritionix'])
     scope:{ngSumArray:"="},
     restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
     link: function($scope, iElm, iAttrs, controller) {
-      var sum = 0;
-      for(var obj in $scope.ngSumArray){
-        obj = $scope.ngSumArray[obj];
-        sum+=obj[iAttrs.ngSumKey]
-      }
-      iElm.text(sum.toFixed(2));
+
+      $scope.$watch('ngSumArray', function(n) {
+        console.log(n)
+        var sum = 0;
+        for (var obj in n) {
+          obj = n[obj];
+          sum += obj[iAttrs.ngSumKey]
+        }
+        iElm.text(sum.toFixed(2));
+      })
       
     }
   };

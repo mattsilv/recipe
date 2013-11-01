@@ -44,7 +44,11 @@ block content
 
       tr(ng-repeat="ing in recipe.ingredients")
         td 
-          input(type="text",size="1",value="1")
+          input(type="text",
+                size="1",
+                placeholder="1",
+                ng-change="saveIng()")
+          
           select(ng-options="f for f in fractions",
                  ng-model="ing.meta.qty",
                  ng-change="saveIng()")

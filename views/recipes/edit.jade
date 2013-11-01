@@ -16,8 +16,8 @@ block content
     table.table.table-bordered.table-striped
       tr
         th.col-sm-1 Qty
-        th.col-sm-1 Measure
-        th.col-sm-4 Ingredient
+        th.col-sm-2 Measure
+        th.col-sm-3 Ingredient
         th.col-sm-1.text-center Source
         th.col-sm-1.text-center Weight (g)
         th.col-sm-1.text-center Cal
@@ -55,7 +55,7 @@ block content
                  ng-change="saveIng()")
             option(value="") -- unit --
 
-        td {{ing.item_name}}
+        td(style="font-size:80%;line-height:22px") {{ing.item_name}}
         td.text-center 
           span.label.label-success USDA
         td.text-center {{ing.nf_serving_weight_grams}}

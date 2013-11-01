@@ -5,15 +5,6 @@ angular.module('recipe', ['nutritionix'])
   function($scope, request, nixApi) {
     $scope.recipes = [];
 
-    $scope.SUM = function(a,v){
-      var sum = 0;
-      for(var obj in a){
-        console.log(obj)
-        sum+=obj[v];
-      }
-      return sum;
-    }
-
     $scope.mergeMeasurements = function(weights){
       console.log("SOMETHING")
       if(!weights) return $scope.measurements;
@@ -155,3 +146,20 @@ angular.module('recipe', ['nutritionix'])
     }
   }
 ])
+
+.directive('ngSum', [function(){
+  // Runs during compile
+  return {
+    scope:{ngSumArray:"="},
+    restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+    link: function($scope, iElm, iAttrs, controller) {
+      var sum = 0;
+      for(var obj in $scope.ngSumArray){
+        obj = $scope.ngSumArray[obj];
+        sum+=obj[iAttrs.ngSumKey]
+      }
+      iElm.text(sum.toFixed(2));
+      
+    }
+  };
+}]);

@@ -47,11 +47,13 @@ block content
           input(type="text",
                 size="1",
                 placeholder="1",
+                ng-model="ing.meta.qty.whole"
                 ng-change="saveIng()")
           
           select(ng-options="f for f in fractions",
-                 ng-model="ing.meta.qty",
+                 ng-model="ing.meta.qty.frac",
                  ng-change="saveIng()")
+          input(type="hidden",ng-model="ing.meta.qty.ev",value="{{eval(''+ing.meta.qty.whole+ing.meta.qty.frac)}}")
             option(value="") -
         td 
           select(ng-options="m.serving_unit_name as m.serving_unit_name for m in ing.weights",

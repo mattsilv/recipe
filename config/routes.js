@@ -9,6 +9,14 @@ module.exports = function(app){
   app.get('/recipes/:id/edit',controllers.recipes.edit);
   app.post('/recipes/:id',controllers.recipes.save);
   app.delete('/recipes/:id',controllers.recipes.delete);
+  // app.all('*',function(req,res){
+  //   var statusCode = 404;
+  //   if(req.xhr){
+  //     res.json({message:"We couldn't find what you were looking for"},statusCode)
+  //   }else{
+  //     res.render('404',404)
+  //   }
+  // });
 }
 
 // C.reate

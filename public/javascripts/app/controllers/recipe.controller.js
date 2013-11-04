@@ -60,7 +60,7 @@ angular.module('recipe', ['nutritionix'])
           measure_OZ: null
         });
       }
-      return $scope.measurements.concat(newMeasurements);
+      return newMeasurements.concat($scope.measurements);
     };
 
     $scope.calc = function($index){

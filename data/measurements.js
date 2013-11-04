@@ -63,7 +63,7 @@ module.exports = [
     usda_name:null,
     aliases:["pound","lb","lbs","pounds"],
     measure_ML:null,
-    measure_MG:454592,
+    measure_MG:453.592,
     measure_OZ:16
   },
   {

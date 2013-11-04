@@ -47,25 +47,28 @@ block content
           input(type="text",
                 size="1",
                 placeholder="1",
-                ng-model="ing.meta.qty.whole"
-                ng-change="saveIng()")
+                ng-model="ing.meta.qty.whole",
+                ng-change="calc($index)")
           
           select(ng-options="f for f in fractions",
                  ng-model="ing.meta.qty.frac",
-                 ng-change="saveIng()")
-          input(type="hidden",ng-model="ing.meta.qty.ev",value="{{eval(''+ing.meta.qty.whole+ing.meta.qty.frac)}}")
+                 ng-change="calc($index)")
+
             option(value="") -
+
         td 
-          select(ng-options="m.serving_unit_name as m.serving_unit_name for m in ing.weights",
-                 ng-model="ing.meta.unit",
-                 ng-change="saveIng()")
+
+          select(ng-options="m as m.name for m in mergeMeasurements(ing.weights) track by m.name",
+                 ng-model="ing.meta.measurement",
+                 ng-change="calc($index)")
+
             option(value="") -- unit --
 
         td(style="font-size:80%;line-height:22px") {{ing.item_name}}
         td.text-center 
           span.label.label-success USDA
-        td.text-center {{ing.nf_serving_weight_grams}}
-        td.text-center {{ing.nf_calories}}
+        td.text-center {{ing.meta.measurement.measure_MG}}
+        td.text-center {{ing.meta.nutrition.nf_calories}}
         td.text-center 
           button.btn.btn-danger.btn-xs(ng-click="remIng($index)")
             i.glyphicon.glyphicon-trash
@@ -73,13 +76,9 @@ block content
         td(colspan="4") 
           &nbsp;
         td.text-center 
-          strong(ng-sum-key="nf_serving_weight_grams",
-                 ng-sum-array="recipe.ingredients",
-                 ng-sum)
+          strong(ng-bind="totalSWGrams")
         td.text-center 
-          strong(ng-sum-key="nf_calories",
-                 ng-sum-array="recipe.ingredients",
-                 ng-sum)
+          strong(ng-bind="totalCalories")
         td
           &nbsp;
     div

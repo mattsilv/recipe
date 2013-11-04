@@ -5,23 +5,6 @@ angular.module('recipe', ['nutritionix'])
   function($scope, request, nixApi) {
     $scope.recipes = [];
 
-    $scope.mergeMeasurements = function(weights){
-      console.log("SOMETHING")
-      if(!weights) return $scope.measurements;
-      var newMeasurements = [];
-      for(var w in weights){
-        newMeasurements.push({
-          group: "us",
-          name: w.serving_unit_name,
-          usda_name: w.serving_unit_name,
-          aliases: null,
-          measure_ML: null,
-          measure_MG: w.serving_weight_grams,
-          measure_OZ: null
-        });
-      }
-      return $scope.measurements.concat(newMeasurements);
-    };
     $scope.delRecipe = function(_id,$index){
       console.log(_id,$index)
       request({
@@ -59,27 +42,84 @@ angular.module('recipe', ['nutritionix'])
     $scope.fractions = fractions.sort();
     $scope.measurements = measurements;
     
+
+    // Merge Data Measurments With Weights
+    // From USDA, or CPG Items
+    $scope.mergeMeasurements = function(weights){
+      if(!weights) return $scope.measurements;
+      var newMeasurements = [];
+      for(var w in weights){
+        w = weights[w];
+        newMeasurements.push({
+          group: "us",
+          name: w.serving_unit_name,
+          usda_name: w.serving_unit_name,
+          aliases: null,
+          measure_ML: null,
+          measure_MG: w.serving_weight_grams,
+          measure_OZ: null
+        });
+      }
+      return $scope.measurements.concat(newMeasurements);
+    };
+
+    $scope.calc = function($index){
+      var ing = $scope.recipe.ingredients[$index];
+      var frac = eval(ing.meta.qty.frac);
+      var whole = eval(ing.meta.qty.whole);
+      var caloriesPerGram = (ing.nf_calories / ing.nf_serving_weight_grams);
+
+      ing.meta.qty.calc = whole+frac;
+
+
+      ing.meta.nutrition = {
+        nf_calories: parseInt(ing.meta.qty.calc*(caloriesPerGram * ing.meta.measurement.measure_MG).toFixed(2))
+      }
+      // var servingWeightGrams = ing.weights
+      // console.log(weight)
+      $scope.updateTotals();
+      $scope.saveIng()
+    }
+
+    $scope.updateTotals = function(){
+      var l = $scope.recipe.ingredients;
+      // Recipe Agg Totals
+      $scope.totalCalories = 0;
+      $scope.totalSWGrams  = 0;
+      
+      for(var _i in l){
+        var ing = l[_i];
+        $scope.totalCalories += ing.meta.nutrition.nf_calories;
+        $scope.totalSWGrams += ing.meta.measurement.measure_MG;
+      }
+    };
+
     $scope.remIng = function($index){
       $scope.recipe.ingredients.splice($index,1)
       $scope.saveIng()
-    }
+    };
+
     $scope.saveIng = function() {
       $scope.save({
         $set: {
           ingredients: $scope.recipe.ingredients
         }
       })
-    }
+    };
+
     $scope.save = function(update) {
       request({
         url: '/recipes/' + $scope.recipe._id,
         method: "POST",
         data: JSON.stringify(update)
       }, function(err, data) {
-        if (err) console.log(err);
+        if (err) return console.log(err);
+        $scope.updateTotals();
         // if(!err) console.log("Successfully updated");
       })
     }
+    // init
+    $scope.updateTotals();
   }
 ])
 
@@ -97,6 +137,7 @@ angular.module('recipe', ['nutritionix'])
           engine: Hogan,
           autoselect: true
         }).on('typeahead:selected', function(obj, datum) {
+          datum.meta = { qty: { whole: 1, frac: null } };
           $scope.recipe.ingredients.push(datum);
           $scope.$apply(function() {
             $scope.save({
@@ -151,24 +192,3 @@ angular.module('recipe', ['nutritionix'])
     }
   }
 ])
-
-.directive('ngSum', [function(){
-  // Runs during compile
-  return {
-    scope:{ngSumArray:"="},
-    restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
-    link: function($scope, iElm, iAttrs, controller) {
-
-      $scope.$watch('ngSumArray', function(n) {
-        console.log(n)
-        var sum = 0;
-        for (var obj in n) {
-          obj = n[obj];
-          sum += obj[iAttrs.ngSumKey]
-        }
-        iElm.text(sum.toFixed(2));
-      })
-      
-    }
-  };
-}]);

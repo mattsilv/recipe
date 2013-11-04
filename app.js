@@ -18,9 +18,9 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('secret','ccc369d4f40ee9c2234d2d502f91a8328a835375');
 app.set('envSettings',envConfig)
-app.use(express.logger('dev'));
 app.use(express.favicon());
 app.use(express.bodyParser());
+app.use(express.logger('dev'));
 app.use(express.methodOverride());
 app.use(express.cookieParser(app.get("secret")));
 app.use(express.session({

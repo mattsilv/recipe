@@ -10,7 +10,9 @@ var search = function(req,res){
       // "fields": ["_score", "item_name", "brand_name", "item_type", "keywords", "seq"],
       "query": query,
       "filters": {
-        "seq": 1,
+        "not":{
+          "nf_serving_weight_grams":null
+        },
         "exists": {
           "keywords": true
         }

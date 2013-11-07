@@ -48,7 +48,10 @@ block content
                 size="1",
                 placeholder="1",
                 ng-model="ing.meta.qty.whole",
-                ng-change="calc($index)",required)
+                ng-change="calc($index)",
+                ng-min-length="1",
+                ng-max-length="3",
+                required)
           
           select(ng-options="f for f in fractions",
                  ng-model="ing.meta.qty.frac",

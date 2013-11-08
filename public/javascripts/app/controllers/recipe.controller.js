@@ -6,7 +6,7 @@ angular.module('recipe', ['nutritionix'])
     $scope.recipes = [];
 
     $scope.delRecipe = function(_id,$index){
-      console.log(_id,$index)
+      // console.log(_id,$index)
       request({
         url:"/recipes/"+_id,
         method:"DELETE"
@@ -46,6 +46,7 @@ angular.module('recipe', ['nutritionix'])
     // Merge Data Measurments With Weights
     // From USDA, or CPG Items
     $scope.mergeMeasurements = function(weights){
+      // console.log(weights)
       if(!weights) return $scope.measurements;
       var newMeasurements = [];
       for(var w in weights){
@@ -57,7 +58,8 @@ angular.module('recipe', ['nutritionix'])
           aliases: null,
           measure_ML: null,
           measure_MG: w.serving_weight_grams,
-          measure_OZ: null
+          measure_OZ: null,
+          usda:true
         });
       }
       return newMeasurements.concat($scope.measurements);
@@ -68,17 +70,34 @@ angular.module('recipe', ['nutritionix'])
       var frac = eval(ing.meta.qty.frac);
       var whole = eval(ing.meta.qty.whole);
       var caloriesPerGram = (ing.nf_calories / ing.nf_serving_weight_grams);
-
+      var usda = ing.meta.measurement.usda === true;
       ing.meta.qty.calc = whole+frac;
 
+      request({
+        url:"http://localhost:3080/recipe/gramsPerOz",
+        method:"POST",
+        data:{
+          "serving_size_qty":ing.nf_serving_size_qty,
+          "serving_size_unit":ing.nf_serving_size_unit,
+          "serving_weight_grams":ing.nf_serving_weight_grams,
+          "show_meas":true
+        }
+      },function(err,data){
+        
+        
+        if(!usda && data && data.grams_per_oz){
+          ing.meta.measurement.measure_MG = ((data.grams_per_oz * ing.meta.measurement.measure_OZ));
+        }
 
-      ing.meta.nutrition = {
-        nf_calories: parseInt(ing.meta.qty.calc*(caloriesPerGram * ing.meta.measurement.measure_MG).toFixed(2))
-      }
-      // var servingWeightGrams = ing.weights
-      // console.log(weight)
-      $scope.updateTotals();
-      $scope.saveIng()
+        ing.meta.nutrition.nf_serving_weight_grams = ing.meta.qty.calc * ing.meta.measurement.measure_MG
+        ing.meta.nutrition.nf_calories = ing.meta.qty.calc * (caloriesPerGram * ing.meta.measurement.measure_MG)
+        // var servingWeightGrams = ing.weights
+        // console.log(weight)
+        $scope.updateTotals();
+        $scope.saveIng()
+      });
+      
+      
     }
 
     $scope.updateTotals = function(){
@@ -90,7 +109,7 @@ angular.module('recipe', ['nutritionix'])
       for(var _i in l){
         var ing = l[_i];
         $scope.totalCalories += ing.meta.nutrition.nf_calories;
-        $scope.totalSWGrams += ing.meta.measurement.measure_MG;
+        $scope.totalSWGrams += ing.meta.nutrition.nf_serving_weight_grams;
       }
     };
 
@@ -137,7 +156,11 @@ angular.module('recipe', ['nutritionix'])
           engine: Hogan,
           autoselect: true
         }).on('typeahead:selected', function(obj, datum) {
-          datum.meta = { qty: { whole: 1, frac: null } };
+          datum.meta = { 
+            qty: { whole: 0, frac: null },
+            nutrition:{ nf_calories: null },
+            measurement:{ measure_MG: null }
+          };
           $scope.recipe.ingredients.push(datum);
           $scope.$apply(function() {
             $scope.save({

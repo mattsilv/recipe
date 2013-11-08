@@ -7,9 +7,21 @@ var search = function(req,res){
     method:"POST",
     qs:nixApi,
     json: {
-      // "fields": ["_score", "item_name", "brand_name", "item_type", "keywords", "seq"],
+      "fields": [
+        "item_name",
+        "brand_name",
+        "item_type",
+        "nf_calories",
+        "nf_serving_weight_grams",
+        "nf_serving_size_qty",
+        "nf_serving_size_unit",
+        "weights",
+        "seq"
+      ],
+      "min_score":0.1,
       "query": query,
       "filters": {
+        "seq":1,
         "not":{
           "nf_serving_weight_grams":null
         },
@@ -20,12 +32,14 @@ var search = function(req,res){
     } 
   },function(e,r,b){
     var items = []
+    var status = (r && r.statusCode >= 400);
+    if(status) console.error("API_ERROR",b);
     for(var index in b.hits){
-      var item = b.hits[index]._source;
+      var item = b.hits[index].fields;
       item.item_name = item.item_name.split('-')[0].trim();
       items.push(item)
     }
-    res.json(items)
+    res.json(items, (!status)? r.statusCode:500 );
   })
 };
 

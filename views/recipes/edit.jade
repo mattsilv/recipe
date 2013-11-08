@@ -43,25 +43,28 @@ block content
       //-     button.btn.btn-default(type="submit") Save
 
       tr(ng-repeat="ing in recipe.ingredients")
+        td.col-sm-2
+          div.col-sm-6
+            input(class="form-control",
+                  type="number",
+                  placeholder="1",
+                  ng-model="ing.meta.qty.whole",
+                  ng-change="calc($index)",
+                  min="0",
+                  max="999",
+                  required)
+          div.col-sm-6
+            select(class="form-control",
+                   ng-options="f for f in fractions",
+                   ng-model="ing.meta.qty.frac",
+                   ng-change="calc($index)")
+
+              option(value="") -
+
         td 
-          input(type="text",
-                size="1",
-                placeholder="1",
-                ng-model="ing.meta.qty.whole",
-                ng-change="calc($index)",
-                ng-min-length="1",
-                ng-max-length="3",
-                required)
-          
-          select(ng-options="f for f in fractions",
-                 ng-model="ing.meta.qty.frac",
-                 ng-change="calc($index)")
 
-            option(value="") -
-
-        td 
-
-          select(ng-options="m as m.name for m in mergeMeasurements(ing.weights) track by m.name",
+          select(class="form-control",
+                 ng-options="m as m.name for m in mergeMeasurements(ing.weights) track by m.name",
                  ng-model="ing.meta.measurement",
                  ng-change="calc($index)")
 
@@ -70,7 +73,7 @@ block content
         td(style="font-size:80%;line-height:22px") {{ing.item_name}}
         td.text-center 
           span.label.label-success USDA
-        td.text-center {{ing.meta.measurement.measure_MG}}
+        td.text-center {{ing.meta.nutrition.nf_serving_weight_grams}}
         td.text-center {{ing.meta.nutrition.nf_calories}}
         td.text-center 
           button.btn.btn-danger.btn-xs(ng-click="remIng($index)")
@@ -85,8 +88,8 @@ block content
         td
           &nbsp;
     div
-      button.btn.btn-success Save
-    br  
+      //- button.btn.btn-success Save
+    //- br  
     div
       a.btn.btn-primary(href="/recipes") Back to Recipes
 

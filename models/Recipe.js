@@ -28,7 +28,44 @@ var Types = Schema.Types;
 // serving_unit_name - Cup Chopped
 // measure_qty - 100
 // measure_uom - either ml or g, no other value accepted
-var recipeSchema = mongoose.Schema({
+
+
+// SOMETHING AWESOME
+var ingredientSchema = new mongoose.Schema({
+  meta: {
+    type: Object,
+    ref: {
+      qty: {
+        type: Object,
+        required: true,
+        default: {
+          whole: 1,
+          frac: null
+        }
+      },
+      nutrition: {
+        type: Object,
+        required: true,
+        default: {
+          nf_calories: null
+        }
+      },
+      measurement: {
+        type: Object,
+        required: true,
+        default: {
+          measure_MG: null,
+          measure_OZ: null
+        }
+      }
+    }
+  }
+}, {
+  strict: false
+});
+
+// Recipe Schema
+var recipeSchema = new mongoose.Schema({
   name:{
     type:String,
     required:true
@@ -41,11 +78,11 @@ var recipeSchema = mongoose.Schema({
     type:String,
     required:true
   },
-  ingredients: Array
-  // [{
+  ingredients:[ingredientSchema]
+  // ingredients: [{
   //   type: Types.ObjectId,
   //   ref: 'Ingredient'
-  // }]
+  // }] // references another collection .populate('ingredients')
 });
 
 

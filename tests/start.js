@@ -2,7 +2,8 @@ var fs = require("fs");
 var should = require('chai').should();
 var supertest = require('supertest');
 var api = supertest(require('../app'));
-
+var Browser = require('zombie');
+var zombie = new Browser()
 
 describe("Recipe API", function() {
 
@@ -60,6 +61,24 @@ describe("Recipe API", function() {
 });
 
 
+
+// ZOMBIE TESTING
+describe("Zombie", function(){
+    
+    // Descrive this part of the test
+    it("should be able to visit recipes", function(done){
+        
+        // Tell the zombie where to go
+        zombie.visit("http://localhost:3000/recipes", function() {
+            // Ensures the zombie
+            // successfully saw the recipes page.
+            (zombie.success).should.be.ok;
+            done();
+        });
+
+    });
+
+});
 
 
 

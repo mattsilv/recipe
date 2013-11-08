@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "npm i -g mocha && npm i -g nodemon",
-    "start": "./downloadConfigFile.sh && node app.js",
+    "start": "./star.sh",
     "watch": "nodemon app.js",
     "test": "mocha tests/start.js"
   },

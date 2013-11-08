@@ -36,7 +36,7 @@ var search = function(req,res){
     if(status) console.error("API_ERROR",b);
     for(var index in b.hits){
       var item = b.hits[index].fields;
-      item.item_name = item.item_name.split('-')[0].trim();
+      item.item_name = item.item_name.split(' - ')[0].trim();
       items.push(item)
     }
     res.json(items, (!status)? r.statusCode:500 );
